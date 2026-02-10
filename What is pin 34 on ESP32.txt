@@ -1,0 +1,62 @@
+What is pin 34 on ESP32?
+
+GPIO 34 is a General Purpose Input/Output pin on the ESP32, but with special properties:
+
+🔹 Key points about GPIO 34
+
+📥 Input-only pin
+👉 You can read signals from it, but you cannot output HIGH/LOW
+
+📊 ADC pin (Analog-to-Digital Converter)
+👉 Perfect for reading analog sensors like:
+
+LM35
+
+Potentiometer
+
+LDR
+
+Gas sensors
+
+⚡ No internal pull-up / pull-down resistors
+👉 External resistors are needed if required (not needed for LM35)
+
+🔹 Why we used GPIO 34 for LM35?
+
+The LM35 outputs an analog voltage
+➡ ESP32 needs an ADC pin to read it
+➡ GPIO 34 is an ADC1 pin, stable and safe even when Wi-Fi is ON
+
+That’s why it’s commonly used for sensors.
+
+🔹 ESP32 ADC pins (recommended)
+GPIO	Type	Notes
+32	ADC1	Input/Output
+33	ADC1	Input/Output
+34	ADC1	Input only
+35	ADC1	Input only
+36 (VP)	ADC1	Input only
+39 (VN)	ADC1	Input only
+
+👉 ADC1 pins work fine with Wi-Fi
+👉 ADC2 pins may fail when Wi-Fi is used
+
+🔹 Where is pin 34 on the board?
+
+On most ESP32 Dev boards:
+
+Labeled as GPIO34, IO34, or just 34
+
+Usually near pins 35, 36, 39
+
+(If you want, tell me your exact ESP32 board model and I’ll mark it for you.)
+
+🔹 Can I use another pin instead of 34?
+
+Yes ✅
+Just change this line in code:
+
+#define LM35_PIN 32
+
+
+Use 32, 33, 35, 36, or 39
